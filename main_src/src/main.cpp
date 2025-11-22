@@ -13,7 +13,12 @@ int main(int argc, char *argv[]) {
 
   // Command line arg for CreateProcess *must* be writable
   std::vector<char> path(1024);
-  std::strcpy(path.data(), "../other_src/other.exe");
+  // std::strcpy(path.data(), "plugins/plugin1.plug");
+  std::strcpy(
+      path.data(),
+      "../child_src/child.exe "
+      "C:/Users/Gebruiker/OneDrive/Documenten/GitHub/sysprog-sandbox/text.txt "
+      "plugin1.plug");
 
   // Start the child process.
   if (!CreateProcess(nullptr,     // No module name (use command line)

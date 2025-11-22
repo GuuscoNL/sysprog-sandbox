@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.10.0)
+project(plugin4 VERSION 0.1.0 LANGUAGES C CXX)
+
+file(GLOB SOURCES "src/*.cpp")
+
+add_library(plugin4 SHARED ${SOURCES})
+include_directories("../child_src/include")
+
+# copy dll to plugins folder after build in the child_src directory
+add_custom_command(TARGET plugin4 POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:plugin4> ../child_src/plugins/$<TARGET_FILE_BASE_NAME:plugin4>.plug
+)
