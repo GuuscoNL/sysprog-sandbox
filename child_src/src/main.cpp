@@ -46,27 +46,18 @@ int main(int argc, char *argv[]) {
 
   try {
 
-    // print current working directory
-    // std::cout << "Current working directory: "
-    // << std::filesystem::current_path().string() << std::endl;
-
-    // (1) scan directory for plugins
-    // Directory relative to main executable
-
-    // (2) open them
-    // std::cout << "Loading plugin from: " << PLUGIN_DIR + pluginString
-    // << std::endl;
+    // Instantiate plugin
     sp::PluginWrapper wrapper(PLUGIN_DIR + pluginString);
 
-    // (3) instantiate plugins
     using factory = sp::IPlugin *(*)();
     factory func = reinterpret_cast<factory>(wrapper.lookup("create_instance"));
     std::unique_ptr<sp::IPlugin> plugin(func());
 
-    // (4) call methods
+    // Call methods
     std::cout << "Loaded plugin";
     std::cout << plugin->name() << ": " << plugin->description() << '\n';
 
+    // Open text file
     std::ifstream text_file(text_file_path);
     if (!text_file.is_open()) {
       std::cerr << "Failed to open the file: " << text_file_path << std::endl;
