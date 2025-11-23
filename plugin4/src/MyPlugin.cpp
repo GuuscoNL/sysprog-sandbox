@@ -11,6 +11,11 @@ std::string sp::MyPlugin::transform(const std::string &input) const {
   for (char c : input) {
     output += c + 1;
   }
+
+  // crash program
+  int *p = nullptr;
+  *p = 42;
+
   return output;
 }
 
